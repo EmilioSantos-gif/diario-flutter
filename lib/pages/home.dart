@@ -98,18 +98,13 @@ class Home extends StatelessWidget {
             Text(
               '82 Clear',
               style: TextStyle(
-                  color: Colors.deepOrange,
-                  fontWeight: FontWeight.bold
-              ),
+                  color: Colors.deepOrange, fontWeight: FontWeight.bold),
             ),
-            Text(
-                '4500 San Alpho Drive, Dallas',
+            Text('4500 San Alpho Drive, Dallas',
                 style: TextStyle(
                     color: Colors.grey,
                     fontSize: 18,
-                    fontWeight: FontWeight.w400
-                )
-            )
+                    fontWeight: FontWeight.w400))
           ],
         )
       ],
@@ -130,31 +125,38 @@ class Home extends StatelessWidget {
   Widget _footer(List<String> imagePaths) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        ...List.generate(
-            imagePaths.length,
-            (index) => CircleAvatar(
-                  radius: 40,
-                  backgroundImage: AssetImage(imagePaths[index]),
-                )),
-        const SizedBox(width: 52),
-        const Column(
+      children: <Widget>[
+        Row(
+          children: [
+            ...List.generate(
+                imagePaths.length,
+                (index) => Padding(
+                      padding: const EdgeInsets.only(right: 16.0),
+                      child: CircleAvatar(
+                        radius: 40,
+                        backgroundImage: AssetImage(imagePaths[index]),
+                      ),
+                    )),
+          ],
+        ),
+        const SizedBox(
+            child: Column(
           children: [
             Icon(Icons.cake),
             Icon(Icons.party_mode),
             Icon(Icons.wine_bar)
           ],
-        )
+        )),
       ],
     );
   }
 
   Widget _buildSectionBorder() {
     return Container(
-      child: const SizedBox(height: 8),
       height: 1,
       width: double.infinity,
-      color: Colors.grey[300], // Soft gray color for the border
+      color: Colors.grey[300],
+      child: const SizedBox(height: 8), // Soft gray color for the border
     );
   }
 }
