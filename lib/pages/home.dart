@@ -1,4 +1,3 @@
-import 'package:diario/widgets/weather.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -6,7 +5,7 @@ class Home extends StatelessWidget {
 
   String homeTitle = 'My Birthday';
   String homeDescription =
-      'It\'s going to be a gret birthday. We are going out for'
+      'It\'s going to be a great birthday. We are going out for'
       ' dinner at my favorite place, then watch a movie after we'
       ' go to the galleria for ice cream and espresso.';
   List<String> tags = [
@@ -15,7 +14,7 @@ class Home extends StatelessWidget {
     'Date',
     'Movie',
     'Family',
-    'Vacays',
+    'Home',
   ];
 
   List<String> footerImages = [
@@ -31,7 +30,7 @@ class Home extends StatelessWidget {
         child: Column(
           //crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Image.asset('assets/images/birthday-cake.jpg'),
+            Image.asset('assets/images/birthday-cake-cover.jpg', width: 450),
             Padding(
               padding: const EdgeInsets.all(15),
               child: SafeArea(
@@ -46,7 +45,7 @@ class Home extends StatelessWidget {
                   const SizedBox(height: 8),
                   _buildSectionBorder(),
                   const SizedBox(height: 8),
-                  Weather(),
+                  _weatherSection(),
                   const SizedBox(height: 8),
                   _buildSectionBorder(),
                   const SizedBox(height: 8),
@@ -76,6 +75,44 @@ class Home extends StatelessWidget {
     return Text(
       homeDescription,
       style: TextStyle(fontSize: 16.0, color: Colors.grey[700]),
+    );
+  }
+
+  Widget _weatherSection() {
+    return const Row(
+      children: [
+        Column(
+          children: [
+            Icon(
+              Icons.wb_sunny,
+              color: Colors.orange,
+            ),
+          ],
+        ),
+        SizedBox(
+          width: 15,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '82 Clear',
+              style: TextStyle(
+                  color: Colors.deepOrange,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
+            Text(
+                '4500 San Alpho Drive, Dallas',
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400
+                )
+            )
+          ],
+        )
+      ],
     );
   }
 
