@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 class Home extends StatelessWidget {
   Home({super.key});
 
+  String topImagePath = 'assets/images/birthday-cake-cover.jpg';
+
   String homeTitle = 'My Birthday';
+
   String homeDescription =
       'It\'s going to be a great birthday. We are going out for'
       ' dinner at my favorite place, then watch a movie after we'
       ' go to the galleria for ice cream and espresso.';
+
   List<String> tags = [
     'Birthday',
     'Food',
@@ -20,7 +24,8 @@ class Home extends StatelessWidget {
   List<String> footerImages = [
     'assets/images/birthday-cake.jpg',
     'assets/images/birthday-gifts.jpg',
-    'assets/images/birthday-food.jpeg'
+    'assets/images/birthday-food.jpeg',
+
   ];
 
   @override
@@ -28,38 +33,38 @@ class Home extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
-          //crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Image.asset('assets/images/birthday-cake-cover.jpg', width: 450),
+            Image.asset(topImagePath, width: 450),
             Padding(
               padding: const EdgeInsets.all(15),
               child: SafeArea(
                   child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _homeTitle(homeTitle),
-                  const SizedBox(height: 8),
-                  _buildSectionBorder(),
-                  const SizedBox(height: 8),
-                  _homeDescription(homeDescription),
-                  const SizedBox(height: 8),
-                  _buildSectionBorder(),
-                  const SizedBox(height: 8),
-                  _weatherSection(),
-                  const SizedBox(height: 8),
-                  _buildSectionBorder(),
-                  const SizedBox(height: 8),
-                  _tags(tags),
-                  const SizedBox(height: 8),
-                  _buildSectionBorder(),
-                  const SizedBox(height: 8),
-                  _footer(footerImages),
-                ],
-              )),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _homeTitle(homeTitle),
+                    _buildSection(_homeDescription(homeDescription)),
+                    _buildSection(_weatherSection()),
+                    _buildSection(_tags(tags)),
+                    _buildSection(_footer(footerImages)),
+                  ],
+                )
+              ),
             )
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildSection(Widget sectionWidget) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+          const SizedBox(height: 8),
+          _buildSectionBorder(),
+          const SizedBox(height: 8),
+          sectionWidget
+        ],
     );
   }
 
@@ -100,7 +105,7 @@ class Home extends StatelessWidget {
               style: TextStyle(
                   color: Colors.deepOrange, fontWeight: FontWeight.bold),
             ),
-            Text('4500 San Alpho Drive, Dallas',
+            Text('4500 San Alpho Drive, Dallas TX',
                 style: TextStyle(
                     color: Colors.grey,
                     fontSize: 18,
@@ -119,37 +124,47 @@ class Home extends StatelessWidget {
             tags.length,
             (index) => Chip(
                 avatar: const Icon(Icons.label_outline),
-                label: Text(tags[index]))));
+                label: Text(tags[index]),
+                elevation: 1,
+              ),
+            ));
   }
 
   Widget _footer(List<String> imagePaths) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Row(
-          children: [
-            ...List.generate(
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Row(
+            children: [
+              ...List.generate(
                 imagePaths.length,
-                (index) => Padding(
-                      padding: const EdgeInsets.only(right: 16.0),
-                      child: CircleAvatar(
-                        radius: 40,
-                        backgroundImage: AssetImage(imagePaths[index]),
-                      ),
-                    )),
-          ],
-        ),
-        const SizedBox(
+                    (index) => Padding(
+                  padding: const EdgeInsets.only(right: 16.0),
+                  child: CircleAvatar(
+                    radius: 40,
+                    backgroundImage: AssetImage(imagePaths[index]),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            width: 150,
             child: Column(
-          children: [
-            Icon(Icons.cake),
-            Icon(Icons.party_mode),
-            Icon(Icons.wine_bar)
-          ],
-        )),
-      ],
+              children: [
+                Icon(Icons.cake),
+                Icon(Icons.party_mode),
+                Icon(Icons.wine_bar),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
+
 
   Widget _buildSectionBorder() {
     return Container(
